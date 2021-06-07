@@ -2,7 +2,7 @@ const inputA = document.querySelector("#a");
 const inputB = document.querySelector("#b");
 const selectA = document.querySelector("#selectA");
 const selectB = document.querySelector("#selectB");
-
+const options: string[] = ["fahrenheit", "celsius", "kelvin"];
 if (!(inputA instanceof HTMLInputElement)) {
   throw new Error("Can't find input with id a");
 }
@@ -29,11 +29,14 @@ const convertFtoK = (x: string) => ((Number(x) - 32) / 1.8 + 273.15).toFixed(2);
 const convertKtoF = (x: string) => ((Number(x) - 273.15) * 1.8 + 32).toFixed(2);
 
 const changeA = () => {
+  if (selectA.value === selectB.value) {
+    const firstResult = options.find((element) => element !== selectA.value);
+    if (firstResult !== undefined) {
+      selectB.value = firstResult;
+    }
+  }
   if (selectA.value === "fahrenheit") {
     switch (selectB.value) {
-      case "fahrenheit":
-        inputB.value = inputA.value;
-        break;
       case "celsius":
         inputB.value = convertFtoC(inputA.value);
         break;
@@ -45,9 +48,6 @@ const changeA = () => {
     switch (selectB.value) {
       case "fahrenheit":
         inputB.value = convertCtoF(inputA.value);
-        break;
-      case "celsius":
-        inputB.value = inputA.value;
         break;
       case "kelvin":
         inputB.value = convertCtoK(inputA.value);
@@ -61,8 +61,41 @@ const changeA = () => {
       case "celsius":
         inputB.value = convertKtoC(inputA.value);
         break;
+    }
+  }
+};
+const changeA2 = () => {
+  if (selectA.value === selectB.value) {
+    const firstResult = options.find((element) => element !== selectB.value);
+    if (firstResult !== undefined) {
+      selectA.value = firstResult;
+    }
+  }
+  if (selectA.value === "fahrenheit") {
+    switch (selectB.value) {
+      case "celsius":
+        inputB.value = convertFtoC(inputA.value);
+        break;
       case "kelvin":
-        inputB.value = inputA.value;
+        inputB.value = convertFtoK(inputA.value);
+        break;
+    }
+  } else if (selectA.value === "celsius") {
+    switch (selectB.value) {
+      case "fahrenheit":
+        inputB.value = convertCtoF(inputA.value);
+        break;
+      case "kelvin":
+        inputB.value = convertCtoK(inputA.value);
+        break;
+    }
+  } else {
+    switch (selectB.value) {
+      case "fahrenheit":
+        inputB.value = convertKtoF(inputA.value);
+        break;
+      case "celsius":
+        inputB.value = convertKtoC(inputA.value);
         break;
     }
   }
@@ -109,4 +142,4 @@ const changeB = () => {
 inputA.addEventListener("input", changeA);
 inputB.addEventListener("input", changeB);
 selectA.addEventListener("change", changeA);
-selectB.addEventListener("change", changeA);
+selectB.addEventListener("change", changeA2);
