@@ -16,7 +16,7 @@
   \*********************/
 /***/ (() => {
 
-eval("\r\n\n\n//# sourceURL=webpack://04-addition/./src/main.ts?");
+eval("\r\nconst inputA = document.querySelector(\"#a\");\r\nconst inputB = document.querySelector(\"#b\");\r\nif (!(inputA instanceof HTMLInputElement)) {\r\n    throw new Error(\"Can't find input with id a\");\r\n}\r\nif (!(inputB instanceof HTMLInputElement)) {\r\n    throw new Error(\"Can't find input with id b\");\r\n}\r\nconst convertC = () => {\r\n    let val_a = Number(inputA.value);\r\n    //   let val_b = Number(inputB.value);\r\n    inputB.value = ((val_a - 32) / 1.8).toFixed(2);\r\n};\r\nconst convertF = () => {\r\n    //   let val_a = Number(inputA.value);\r\n    let val_b = Number(inputB.value);\r\n    inputA.value = (val_b * 1.8 + 32).toFixed(2);\r\n};\r\ninputA.addEventListener(\"input\", convertC);\r\ninputB.addEventListener(\"input\", convertF);\r\n\n\n//# sourceURL=webpack://04-addition/./src/main.ts?");
 
 /***/ })
 
