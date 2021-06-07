@@ -109,4 +109,4 @@ const changeB = () => {
 inputA.addEventListener("input", changeA);
 inputB.addEventListener("input", changeB);
 selectA.addEventListener("change", changeA);
-selectB.addEventListener("change", changeB);
+selectB.addEventListener("change", changeA);
