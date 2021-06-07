@@ -1,0 +1,55 @@
+html {
+  box-sizing: border-box;
+  font-size: 0.625em;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  margin: 3rem auto;
+  text-align: center;
+}
+main {
+  display: flex;
+  justify-content: center;
+}
+section {
+  display: flex;
+  flex-direction: column;
+}
+p {
+  font-size: 4rem;
+  margin: 1rem 3rem;
+}
+input,
+select {
+  display: inline-block;
+}
+input {
+  padding: 1rem;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+select {
+  border-top: none;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+option {
+  font-size: 1.5rem;
+}
