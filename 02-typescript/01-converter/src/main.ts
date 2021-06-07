@@ -9,11 +9,9 @@ if (!(inputB instanceof HTMLInputElement)) {
 
 const convertC = () => {
   let val_a = Number(inputA.value);
-  //   let val_b = Number(inputB.value);
   inputB.value = ((val_a - 32) / 1.8).toFixed(2);
 };
 const convertF = () => {
-  //   let val_a = Number(inputA.value);
   let val_b = Number(inputB.value);
   inputA.value = (val_b * 1.8 + 32).toFixed(2);
 };
