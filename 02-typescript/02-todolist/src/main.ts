@@ -7,16 +7,25 @@ interface State {
   done: boolean;
 }
 
-const todos: State[] = [
+let todos: State[] = [
   { title: "Learn NodeJs", done: false },
   { title: "Learn Python", done: false },
 ];
+
+if (localStorage.getItem("todos") === null) {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+const json = localStorage.getItem("todos");
+if (json) {
+  todos = JSON.parse(json);
+}
 
 const render = () => {
   appRoot.innerHTML = "";
   const ulElement = document.createElement("ul");
   appRoot.appendChild(ulElement);
-
+  todos.sort((a, b) => a.title.localeCompare(b.title));
   for (const todo of todos) {
     const liElement = document.createElement("li");
     const pTitle = document.createElement("p");
@@ -32,31 +41,69 @@ const render = () => {
     ulElement.appendChild(liElement);
     inputCheck.addEventListener("change", () => {
       todo.done = !todo.done;
+      localStorage.setItem("todos", JSON.stringify(todos));
       render();
     });
   }
   const formElement = document.createElement("form");
   const inputText = document.createElement("input");
-  const buttonElement = document.createElement("button");
-
+  const buttonSubmit = document.createElement("button");
+  const buttonDone = document.createElement("button");
+  const buttonUndone = document.createElement("button");
   inputText.setAttribute("type", "text");
-  buttonElement.innerText = "Add To Do";
-  buttonElement.setAttribute("type", "submit");
+  buttonSubmit.innerText = "Add To Do";
+  buttonDone.innerText = "Already Done";
+  buttonUndone.innerText = "Not Done";
+  buttonSubmit.setAttribute("type", "submit");
   formElement.setAttribute("method", "post");
   formElement.setAttribute("action", "");
   formElement.appendChild(inputText);
-  formElement.appendChild(buttonElement);
+  formElement.appendChild(buttonSubmit);
+  formElement.appendChild(buttonDone);
+  formElement.appendChild(buttonUndone);
   appRoot.appendChild(formElement);
 
-  buttonElement.addEventListener("click", (e) => {
+  //add a div for empty input error handler and placerholder for done and undone list
+  const divHolder = document.createElement("div");
+  appRoot.appendChild(divHolder);
+  buttonDone.addEventListener("click", (event) => {
+    event.preventDefault();
+    divHolder.innerHTML = "";
+    const todoDones = todos.filter((todo) => todo.done == true);
+    const ulDone = document.createElement("ul");
+    ulDone.setAttribute("id", "done");
+    for (const todoDone of todoDones) {
+      const liDone = document.createElement("li");
+      liDone.innerText = todoDone.title;
+      ulDone.appendChild(liDone);
+    }
+    divHolder.appendChild(ulDone);
+  });
+  buttonUndone.addEventListener("click", (e) => {
+    e.preventDefault();
+    divHolder.innerHTML = "";
+    const todoUndones = todos.filter((todo) => todo.done == false);
+    const ulUndone = document.createElement("ul");
+    ulUndone.setAttribute("id", "undone");
+    for (const todoUndone of todoUndones) {
+      const liUndone = document.createElement("li");
+      liUndone.innerText = todoUndone.title;
+      ulUndone.appendChild(liUndone);
+    }
+    divHolder.appendChild(ulUndone);
+  });
+  buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
     if (inputText.value.trim() === "") {
+      divHolder.innerHTML = "";
       const pError = document.createElement("p");
+      pError.setAttribute("id", "error");
       pError.innerText = "Todo can't be empty";
-      formElement.appendChild(pError);
+      divHolder.appendChild(pError);
       inputText.value = "";
     } else {
       todos.push({ title: inputText.value, done: false });
+      localStorage.setItem("todos", JSON.stringify(todos));
       render();
     }
   });
