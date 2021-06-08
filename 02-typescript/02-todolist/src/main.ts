@@ -16,6 +16,7 @@ if (localStorage.getItem("todos") === null) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
+// json could be null
 const json = localStorage.getItem("todos");
 if (json) {
   todos = JSON.parse(json);
@@ -25,7 +26,10 @@ const render = () => {
   appRoot.innerHTML = "";
   const ulElement = document.createElement("ul");
   appRoot.appendChild(ulElement);
+
+  // sort alphapetically
   todos.sort((a, b) => a.title.localeCompare(b.title));
+
   for (const todo of todos) {
     const liElement = document.createElement("li");
     const pTitle = document.createElement("p");
@@ -41,6 +45,7 @@ const render = () => {
     ulElement.appendChild(liElement);
     inputCheck.addEventListener("change", () => {
       todo.done = !todo.done;
+      // each change of the todo item should be tracked in localStorage
       localStorage.setItem("todos", JSON.stringify(todos));
       render();
     });
@@ -66,6 +71,8 @@ const render = () => {
   //add a div for empty input error handler and placerholder for done and undone list
   const divHolder = document.createElement("div");
   appRoot.appendChild(divHolder);
+
+  // Done list
   buttonDone.addEventListener("click", (event) => {
     event.preventDefault();
     divHolder.innerHTML = "";
@@ -79,6 +86,8 @@ const render = () => {
     }
     divHolder.appendChild(ulDone);
   });
+
+  // Undone list
   buttonUndone.addEventListener("click", (e) => {
     e.preventDefault();
     divHolder.innerHTML = "";
@@ -92,6 +101,8 @@ const render = () => {
     }
     divHolder.appendChild(ulUndone);
   });
+
+  // Submit new todo
   buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
     if (inputText.value.trim() === "") {
@@ -103,6 +114,7 @@ const render = () => {
       inputText.value = "";
     } else {
       todos.push({ title: inputText.value, done: false });
+      //each change of todo should be tracked
       localStorage.setItem("todos", JSON.stringify(todos));
       render();
     }
