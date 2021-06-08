@@ -36,7 +36,15 @@ const getRandomColor = (): string => {
 
 const App = (): JSX.Element => {
   return (
-    <p style={{ backgroundColor: getRandomColor() }}>{getRandomBook(books)}</p>
+    <p
+      style={{
+        backgroundColor: getRandomColor(),
+        padding: "2rem",
+        fontSize: "2rem",
+      }}
+    >
+      {getRandomBook(books)}
+    </p>
   );
 };
 
