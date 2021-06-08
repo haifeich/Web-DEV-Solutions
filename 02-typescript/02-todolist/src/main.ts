@@ -17,6 +17,7 @@ const render = () => {
   const ulElement = document.createElement("ul");
   appRoot.appendChild(ulElement);
 
+  todos.sort((a, b) => a.title.localeCompare(b.title));
   for (const todo of todos) {
     const liElement = document.createElement("li");
     const pTitle = document.createElement("p");
@@ -51,10 +52,12 @@ const render = () => {
   buttonElement.addEventListener("click", (e) => {
     e.preventDefault();
     if (inputText.value.trim() === "") {
-      const pError = document.createElement("p");
-      pError.innerText = "Todo can't be empty";
-      formElement.appendChild(pError);
-      inputText.value = "";
+      if (!formElement.querySelector("p")) {
+        const pError = document.createElement("p");
+        pError.innerText = "Todo can't be empty";
+        formElement.appendChild(pError);
+        inputText.value = "";
+      }
     } else {
       todos.push({ title: inputText.value, done: false });
       render();
