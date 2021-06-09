@@ -16,7 +16,7 @@ if (localStorage.getItem("todos") === null) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-// json could be null
+// due to the logic of TypeScript json could be null
 const json = localStorage.getItem("todos");
 if (json) {
   todos = JSON.parse(json);
@@ -24,23 +24,20 @@ if (json) {
 
 const render = () => {
   appRoot.innerHTML = "";
+
   const ulElement = document.createElement("ul");
   const formElement = document.createElement("form");
   const inputText = document.createElement("input");
   const buttonSubmit = document.createElement("button");
-  // const buttonDone = document.createElement("button");
-  // const buttonUndone = document.createElement("button");
+
   inputText.setAttribute("type", "text");
   buttonSubmit.innerText = "Add To Do";
-  // buttonDone.innerText = "Already Done";
-  // buttonUndone.innerText = "Not Done";
   buttonSubmit.setAttribute("type", "submit");
   formElement.setAttribute("method", "post");
   formElement.setAttribute("action", "");
   formElement.appendChild(inputText);
   formElement.appendChild(buttonSubmit);
-  // formElement.appendChild(buttonDone);
-  // formElement.appendChild(buttonUndone);
+
   const selecetEl = document.createElement("select");
   const optionDefault = document.createElement("option");
   const optionAll = document.createElement("option");
@@ -63,10 +60,16 @@ const render = () => {
   appRoot.appendChild(formElement);
   appRoot.appendChild(ulElement);
 
+  //add a div for empty input error handler and placerholder for done and undone list
+  const divHolder = document.createElement("div");
+  appRoot.appendChild(divHolder);
+
   // sort alphapetically
   todos.sort((a, b) => a.title.localeCompare(b.title));
+
   const loadList = () => {
     ulElement.innerHTML = "";
+    divHolder.innerHTML = "";
     let shows: State[] = [];
     switch (selecetEl.value) {
       case "all":
@@ -92,6 +95,7 @@ const render = () => {
       inputCheck.setAttribute("type", "checkbox");
       inputCheck.checked = show.done;
       ulElement.appendChild(liElement);
+
       inputCheck.addEventListener("change", () => {
         let match: number = 0;
         for (let i = 0; i < todos.length; i++) {
@@ -106,52 +110,16 @@ const render = () => {
         // each change of the todo item should be tracked in localStorage
         localStorage.setItem("todos", JSON.stringify(todos));
         loadList();
-
-        // render();
       });
     }
   };
   selecetEl.addEventListener("change", loadList);
 
-  //add a div for empty input error handler and placerholder for done and undone list
-  const divHolder = document.createElement("div");
-  appRoot.appendChild(divHolder);
-
-  // Done list
-  // buttonDone.addEventListener("click", (event) => {
-  //   event.preventDefault();
-  //   divHolder.innerHTML = "";
-  //   const todoDones = todos.filter((todo) => todo.done == true);
-  //   const ulDone = document.createElement("ul");
-  //   ulDone.setAttribute("id", "done");
-  //   for (const todoDone of todoDones) {
-  //     const liDone = document.createElement("li");
-  //     liDone.innerText = todoDone.title;
-  //     ulDone.appendChild(liDone);
-  //   }
-  //   divHolder.appendChild(ulDone);
-  // });
-
-  // Undone list
-  // buttonUndone.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   divHolder.innerHTML = "";
-  //   const todoUndones = todos.filter((todo) => todo.done == false);
-  //   const ulUndone = document.createElement("ul");
-  //   ulUndone.setAttribute("id", "undone");
-  //   for (const todoUndone of todoUndones) {
-  //     const liUndone = document.createElement("li");
-  //     liUndone.innerText = todoUndone.title;
-  //     ulUndone.appendChild(liUndone);
-  //   }
-  //   divHolder.appendChild(ulUndone);
-  // });
-
   // Submit new todo
   buttonSubmit.addEventListener("click", (e) => {
     e.preventDefault();
+    divHolder.innerHTML = "";
     if (inputText.value.trim() === "") {
-      divHolder.innerHTML = "";
       const pError = document.createElement("p");
       pError.setAttribute("id", "error");
       pError.innerText = "Todo can't be empty";
