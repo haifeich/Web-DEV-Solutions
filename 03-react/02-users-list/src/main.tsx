@@ -4,19 +4,11 @@ import * as ReactDOM from "react-dom";
 const appDiv = document.getElementById("app");
 
 if (!(appDiv instanceof HTMLDivElement)) {
-	throw new Error("No div with id 'app' found");
+  throw new Error("No div with id 'app' found");
 }
 
-const getRandomBook = (): string => {
-	return "";
-};
-
 const App = (): JSX.Element => {
-	return (
-		<p style={{ backgroundColor: "gray" }}>
-			{getRandomBook()}
-		</p>
-	);
+  return <></>;
 };
 
 ReactDOM.render(<App />, appDiv);
