@@ -12,14 +12,12 @@ let todos: State[] = [
   { title: "Learn Python", done: false },
 ];
 
-if (localStorage.getItem("todos") === null) {
-  localStorage.setItem("todos", JSON.stringify(todos));
-}
-
 // due to the logic of TypeScript json could be null
 const json = localStorage.getItem("todos");
 if (json) {
   todos = JSON.parse(json);
+} else {
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 const render = () => {
@@ -38,7 +36,7 @@ const render = () => {
   formElement.appendChild(inputText);
   formElement.appendChild(buttonSubmit);
 
-  const selecetEl = document.createElement("select");
+  const selectEl = document.createElement("select");
   const optionDefault = document.createElement("option");
   const optionAll = document.createElement("option");
   const optionDone = document.createElement("option");
@@ -52,11 +50,11 @@ const render = () => {
   optionDone.innerText = "Done";
   optionUndone.setAttribute("value", "undone");
   optionUndone.innerText = "Undone";
-  selecetEl.appendChild(optionDefault);
-  selecetEl.appendChild(optionAll);
-  selecetEl.appendChild(optionDone);
-  selecetEl.appendChild(optionUndone);
-  formElement.appendChild(selecetEl);
+  selectEl.appendChild(optionDefault);
+  selectEl.appendChild(optionAll);
+  selectEl.appendChild(optionDone);
+  selectEl.appendChild(optionUndone);
+  formElement.appendChild(selectEl);
   appRoot.appendChild(formElement);
   appRoot.appendChild(ulElement);
 
@@ -71,7 +69,7 @@ const render = () => {
     ulElement.innerHTML = "";
     divHolder.innerHTML = "";
     let shows: State[] = [];
-    switch (selecetEl.value) {
+    switch (selectEl.value) {
       case "all":
         shows = todos;
         break;
@@ -97,23 +95,15 @@ const render = () => {
       ulElement.appendChild(liElement);
 
       inputCheck.addEventListener("change", () => {
-        let match: number = 0;
-        for (let i = 0; i < todos.length; i++) {
-          if (todos[i].title == show.title) {
-            match = i;
-            break;
-          }
-        }
-
-        todos[match].done = !todos[match].done;
-
-        // each change of the todo item should be tracked in localStorage
+        //variable show references object todos
+        show.done = !show.done;
+        //each change of todo should be tracked
         localStorage.setItem("todos", JSON.stringify(todos));
         loadList();
       });
     }
   };
-  selecetEl.addEventListener("change", loadList);
+  selectEl.addEventListener("change", loadList);
 
   // Submit new todo
   buttonSubmit.addEventListener("click", (e) => {
@@ -129,8 +119,8 @@ const render = () => {
       todos.push({ title: inputText.value, done: false });
       //each change of todo should be tracked
       localStorage.setItem("todos", JSON.stringify(todos));
-      if (selecetEl.value == "done" || selecetEl.value == "default") {
-        selecetEl.value = "all";
+      if (selectEl.value == "done" || selectEl.value == "default") {
+        selectEl.value = "all";
       }
       loadList();
     }
