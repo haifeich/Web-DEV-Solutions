@@ -1,1 +1,38 @@
+html {
+  box-sizing: border-box;
+  font-size: 0.625em;
+}
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  text-align: center;
+}
+h1 {
+  padding: 2rem;
+}
+input {
+  padding: 1rem;
+  width: 20rem;
+}
+span {
+  border: 2px solid rgb(99, 98, 98);
+  padding: 1rem;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
