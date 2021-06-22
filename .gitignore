@@ -1,3 +1,5 @@
 node_modules
 .DS_Store
-Lib
+env
+__pycache__
+db.sqlite3
