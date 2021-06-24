@@ -1,6 +1,4 @@
-# Animals
-
-[See the result](https://powercoders-switzerland.github.io/2021-1-web-dev/03-react/examples/07-animals/).
+# Front-end
 
 ## How to install
 
@@ -23,3 +21,9 @@ npm run build:watch
 ```
 
 _Note:_ to exit the watch mode, type `ctrl+c`.
+
+## How to run
+
+Run the Django server (see [back-end readme file](../back/Readme.md)).
+
+The `index.html` and `style.css` files are in <../back/static>. `build.js` is also output there.
