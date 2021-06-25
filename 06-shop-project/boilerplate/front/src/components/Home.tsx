@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getResult, FectchResult } from "../model/Products";
 export default function Home() {
   const [products, setProducts] = useState<FectchResult>({ status: "loading" });
-  const url = "https://fakestoreapi.com/products?limit=10";
+  const url = "/shop/products/";
   useEffect(() => {
     getResult(url).then(setProducts);
   }, []);
