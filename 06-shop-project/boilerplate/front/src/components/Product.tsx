@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Product } from "../model/Products";
+import { Product, SingleProduct } from "../model/Products";
 
 export default function Product() {
   const [product, setProduct] = useState<Product | null>(null);
@@ -23,13 +23,5 @@ export default function Product() {
   }, []);
   if (errorMessage) return <p>{errorMessage}</p>;
   if (product === null) return <p>Loading</p>;
-  const { id, title, price, descrpriton, image } = product;
-  return (
-    <>
-      <h2>{title}</h2>
-      <img src={image} alt={title} />
-      <p>{descrpriton}</p>
-      <p>{price}</p>
-    </>
-  );
+  return <SingleProduct {...product} />;
 }
