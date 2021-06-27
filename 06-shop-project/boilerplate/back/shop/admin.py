@@ -1,3 +1,7 @@
-from django.contrib import admin
+from django.contrib.admin import ModelAdmin, register
+from shop.models import Product
 
-# TODO Add admin views
+@register(Product)
+class ProductAdmin(ModelAdmin):
+    list_display =('title','category')
+    pass

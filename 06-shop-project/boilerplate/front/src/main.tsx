@@ -20,10 +20,10 @@ export default function App() {
       <Nav />
       <Switch>
         <Route path="/" exact children={<Home />} />
-        <Route path="/products/:name" children={<Product />} />
+        <Route path="/products/category/:category" children={<Category />} />
+        <Route path="/products/:id" children={<Product />} />
         <Route path="/cart" children={<Cart />} />
         <Route path="/form" children={<Form />} />
-        <Route path="/products/category/:name" children={<Category />} />
       </Switch>
     </HashRouter>
   );
