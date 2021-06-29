@@ -11,9 +11,9 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <main>
       <Sidebar />
       <Products {...products} />
-    </>
+    </main>
   );
 }

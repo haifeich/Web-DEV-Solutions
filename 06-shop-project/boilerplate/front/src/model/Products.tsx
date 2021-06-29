@@ -46,14 +46,14 @@ export function SingleProduct({
   image,
 }: Product) {
   return (
-    <li>
-      <Link to={`/products/${id}`}>
+    <main>
+      <li>
         <h2>{title}</h2>
         <img src={image} alt={title} />
-      </Link>
-      <p>{description}</p>
-      <p>{price}</p>
-    </li>
+        <p>{description}</p>
+        <p>{price}</p>
+      </li>
+    </main>
   );
 }
 export function Products(products: FetchResult) {

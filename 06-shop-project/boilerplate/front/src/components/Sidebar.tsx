@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 // ];
 export default function Sidebar() {
   return (
-    <ul>
+    <aside>
       <Link to="/" replace>
         All
       </Link>
@@ -16,6 +16,6 @@ export default function Sidebar() {
       <Link to="/products/category/men's clothing">Men's Clothing</Link>
       <Link to="/products/category/jewelery">Jewelery</Link>
       <Link to="/products/category/electronics">Electronics</Link>
-    </ul>
+    </aside>
   );
 }

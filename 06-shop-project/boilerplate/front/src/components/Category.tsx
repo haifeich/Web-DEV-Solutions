@@ -12,16 +12,15 @@ export default function Category() {
 
   const url = new URL("/shop/products/", "http://127.0.0.1:8000/");
   url.searchParams.append("category", category);
-  url.searchParams.append("id", "");
 
   useEffect(() => {
     getResult(url.toString()).then(setProducts);
   }, [category]);
 
   return (
-    <>
+    <main>
       <Sidebar />
       <Products {...products} />
-    </>
+    </main>
   );
 }
